@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <title>Player.mp3</title>
+
+    <script type="text/javascript" src="../site/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../site/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../site/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../site/s2.js"></script>
+    <link rel="stylesheet" href="../site/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../site/s.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a class="navbar-brand navbar-link" href="/"><div id="logo"><img style="height: 30px" src="../site/static/logo-w-2.png">.mp3</div></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <div class="navbar-form navbar-right">
+                    <div class="form-group">
+                            <div class="form-group">
+                                <div class="player">
+                                    <img id="play" src="../site/static/play-white.png" onclick="document.getElementById('audio').play(); $(this).hide(); $('#pause').show()">
+                                    <img id="pause" src="../site/static/pause-white.png" onclick="document.getElementById('audio').pause(); $(this).hide(); $('#play').show()">
+                                    <audio id="audio" type="audio/mpeg"></audio>
+                                    <span id="track">No Content</span>
+                                    <span id="time">00:00</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="player">
+                                    <img id="vol-img" src="../site/static/sound-w.png" alt="">
+                                    <input onchange="document.getElementById('audio').volume =this.value/10" id="vol" type="range" min="0" max="10">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <input  value="{{ .search_field }}" type="text" class="form-control" placeholder="name or #tag" onchange="search(this)" title="start with # to search for tags">
+                    </div>
+                    <!--<div class="form-group">-->
+                    <button id="logout" class="btn btn-success">Log out</button>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--</nav>-->
+    {{if eq (len .files) 0 }}
+    <h1 style="text-align: center">
+        No songs found by your request.
+    </h1>
+    {{ else }}
+    <div id="app" class="container">
+        <div class="song-list">
+            {{ range $id, $f := .files }}
+            <div id="{{ $id }}" class="song">
+                <div class="play-button" onclick="playSong('{{ $f.Name }}','{{ $id }}')">
+                    <img src="static/grey-sound.jpg">
+                </div>
+                <div class="song-inner-wrapper">
+                    <div class="song-name">
+                        {{ $f.Name }}
+                    </div>
+                    <div class="tag-list">
+                        {{ range $t := $f.Tags}}
+                        <span class="tag-item">
+                      {{ $t }}
+                      <img onclick="delTag('{{ $t }}','{{ $id }}')" class="del-tag" src="static/grey_cross.png" title="Remove Tag">
+                     </span> {{ end }}
+                        <img class="add-img" onclick="showInp(this)" src="static/add_plus.png" title="Add New Tag">
+                        <input class="add-inp" onchange="addTag(this,'{{ $id }}')" placeholder="Add Tag" style="display: none">
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+    {{ end }}
+<button onclick="console.log(document.getElementById('audio').duration)"></button>
+</body>
+
+</html>

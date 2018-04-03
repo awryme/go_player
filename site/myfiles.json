@@ -1,0 +1,34 @@
+[
+  {
+    "name": "name1",
+    "link": "link1",
+    "tags": [
+      "t1-1",
+      "t1-2"
+    ]
+  },
+  {
+    "name": "name2",
+    "link": "link2",
+    "tags": [
+      "t2-1",
+      "t2-2"
+    ]
+  },
+  {
+    "name": "name3",
+    "link": "link3",
+    "tags": [
+      "t3-1",
+      "t3-2"
+    ]
+  },
+  {
+    "name": "name4",
+    "link": "link4",
+    "tags": [
+      "t4-1",
+      "t4-2"
+    ]
+  }
+]

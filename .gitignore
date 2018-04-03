@@ -12,3 +12,12 @@
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
+
+
+.credentials/
+.idea/
+tok.json
+my.db
+file.json
+client_secret.json
+**/.DS_Store
